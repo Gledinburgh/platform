@@ -1,10 +1,10 @@
 const levelChars = {
   "." : "empty",
   "#" : "wall",
-  "+" : "lava",
-  "=" : "lava",
-  "|" : "lava",
-  "v" : "lava",
+  "+" : "Lava",
+  "=" : "Lava",
+  "|" : "Lava",
+  "v" : "Lava",
   "@" : "player",
-  "o" : "coin"
+  "o" : "Coin"
 }

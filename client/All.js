@@ -10,6 +10,9 @@ const levelChars = {
   "o" : "Coin"
 }
 
+const wobbleSpeed = 8;
+const WobbleDist = 0.07;
+
 class Vec {
   constructor(x, y) {
     this.x = x;
@@ -23,7 +26,12 @@ class Vec {
   }
 };
 
-
+const overlap = (actor1, actor2) => {
+  return actor1.pos.x + actor1.size.x > actor2.pos.x &&
+         actor1.pos.x < actor2.pos.x + actor2.size.cc &&
+         actor1.pos.y + actor1.size.y > actor2.pos.y &&
+         actor1.pos.y < actor2.pos.y + actor2.size.y;zx
+}
 
 class Player {
   constructor (pos, speed) {
@@ -36,54 +44,6 @@ class Player {
   }
 }
   Player.prototype.size = new Vec(0.8, 1.5)
-
-  class State {
-    constructor(level, actors, status) {
-      this.level = level;
-      this.actors = actors;
-      this.status = status;
-    }
-    static start(level) {
-      return new State(level, level.startActors, "playing")
-    }
-    get player() {
-      return this.actors.find(a => a.type === "player")
-    }
-  }
-
-class Lava {
-  constructor(pos, speed, reset) {
-    this.pos = pos;
-    this.speed = speed;
-    this.reset = reset;
-  }
-  get type () {return "lava"};
-  static create(pos, ch) {
-    if (ch === "=") {
-      return new Lava(pos, new Vec(2, 0));
-    } else if (ch === "|") {
-      return new Lava(pos, new Vec(0, 2));
-    }
-    else if (ch === "v") {
-      return new Lava(pos, new Vec(0, 3));
-    }
-  }
-}
-Lava.prototype.size = new Vec(1,1);
-
-class Coin {
-  constructor(pos, basePos, wobble) {
-    this.pos = pos;
-    this.basePos = basePos;
-    this.wobble = wobble;
-  }
-  get type() {return "coin";}
-  static create(pos) {
-    let basePos = pos.plus(new  Vec(0.2, 0.1));
-    return new Coin(basePos,basePos, Math.random() * Math.PI * 2);
-  }
-}
-Coin.prototype.size = new Vec(0.6, 0.6)
 
 const elt = (name, attrs, ...children) => {
   let dom = document.createElement(name);

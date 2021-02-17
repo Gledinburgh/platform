@@ -4,10 +4,10 @@
   border-spacing: 0;
 }
 .background td { padding: 0}
-.lava { background: red}
+.Lava { background: red}
 .wall { background: white}
 .actor { position: absolute}
-.coin { color: rgb(255, 204, 38);}
+.Coin { background: rgb(255, 204, 38);}
 .player { background: blueviolet;}
 
 .lost .player {
