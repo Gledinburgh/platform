@@ -9,9 +9,30 @@ const levelChars = {
   "@" : "Player",
   "o" : "Coin"
 }
-
+//for the wobble animation
 const wobbleSpeed = 8;
-const WobbleDist = 0.07;
+const wobbleDist = 0.07;
+//for player movement
+const playerXSpeed = 7;
+const gravity = 30;
+const jumpSpeed = 17;
+
+const trackKeys = (keys) => {
+  let down = Object.create(null);
+  //update the "down" tracker if the current key is pressed
+  const track = (event) => {
+    if (keys.includes(event.key)) {
+      //creates a '"keydown" property for each key, set as true or false to track if currently pressed
+      down[event.key] = event.type === "keydown";
+      event.preventDefault();
+    }
+  }
+  window.addEventListener("keydown", track);
+  window.addEventListener("keyup", track);
+  return down;
+}
+
+const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"])
 
 class Vec {
   constructor(x, y) {
@@ -33,18 +54,6 @@ const overlap = (actor1, actor2) => {
          actor1.pos.y < actor2.pos.y + actor2.size.y;zx
 }
 
-class Player {
-  constructor (pos, speed) {
-    this.pos = pos;
-    this.speed = speed;
-  }
-  get type() { return "player"};
-  static create(pos) {
-    return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0))
-  }
-}
-  Player.prototype.size = new Vec(0.8, 1.5)
-
 const elt = (name, attrs, ...children) => {
   let dom = document.createElement(name);
   for (let attr of Object.keys(attrs)) {
@@ -56,7 +65,7 @@ const elt = (name, attrs, ...children) => {
   return dom
 }
 
-class DOMdisplay {
+class DOMDisplay {
   constructor (parent, level) {
     this.dom = elt("div", {class: "game"},  drawGrid(level));
     this.actorLayer = null;
@@ -130,15 +139,3 @@ const drawActors = (actors) => {
   }));
 };
 
-//25 width
-
-const simpleLevelPlan = `
-.........................
-..##................#....
-..#.........o..o....#....
-..#.......######....#....
-..#.@...............#....
-..#######===========#....
-........############.....
-.........................
-.........................`

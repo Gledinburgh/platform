@@ -19,7 +19,7 @@ class State {
 
     if(newState.status !== "playing") return newState;
 
-    let player = newStatus.player;
+    let player = newState.player;
     if (this.level.touches(player.pos, player.size, "Lava")) {
       return new State(this.level, actors, "lost")
     }
@@ -30,7 +30,7 @@ class State {
         newState = actor.collide(newState)
       }
     }
-  return newstate;
+  return newState;
   };
 }
 

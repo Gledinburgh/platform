@@ -10,12 +10,11 @@
     <script src="State.js"></script>
     <script src="Lava.js"></script>
     <script src="Coin.js"> </script>
-
+    <script src="Player.js"></script>
+    <script src="GAME_LEVELS.js"></script>
+    <script src="runLogic.js"></script>
        <script>
-        let simpleLevel = new Level(simpleLevelPlan);
-        let display = new DOMdisplay(document.body, simpleLevel);
-        console.log(State.start(simpleLevel))
-        display.syncState(State.start(simpleLevel))
+        runGame(GAME_LEVELS, DOMDisplay);
       </script>
     </body>
   </head>

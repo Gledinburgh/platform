@@ -23,7 +23,7 @@ class Coin {
 
   update(time) {
     let wobble = this.bobble + time * wobbleSpeed;
-    let wobblePos = Math.Sin(wobble) * wobbleDist;
+    let wobblePos = Math.sin(wobble) * wobbleDist;
     return new Coin(this.basePos.plus(new Vec(0, wobblePos)), this.basePos, wobble);
   }
 }
